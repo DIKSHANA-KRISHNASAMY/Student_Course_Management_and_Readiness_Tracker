@@ -1,2 +1,1 @@
-# Student_Course_Management_and_Readiness_Tracker
-Student Course Management and Readiness Tracker is a Java-based web application that manages students and courses, provides learning materials, and tracks students’ learning readiness and progress using a layered architecture
+Student Course Management and Readiness Tracker is a Java-based web application that manages students and courses, provides structured learning materials, and tracks students’ learning readiness and progress through measurable indicators such as skill completion and performance. It follows a layered architecture to ensure clear separation between presentation, business logic, and data access, making the system modular, maintainable, and scalable for future enhancements.
