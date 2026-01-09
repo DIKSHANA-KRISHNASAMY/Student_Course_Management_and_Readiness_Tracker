@@ -6,9 +6,9 @@ public class StudentProgress {
     private int materialId;
     private String status;
     
-    // Joined fields for display
     private String materialTitle;
-    private int materialWeight;
+    private int materialWeight; 
+    private int totalCourseWeight; 
     private String type;
     private String resourceUrl;
     private String skillName;
@@ -21,26 +21,22 @@ public class StudentProgress {
         this.status = status;
     }
 
-    public int getId() { return id; }
-    public int getStudentId() { return studentId; }
-    public int getMaterialId() { return materialId; }
-    public String getStatus() { return status; }
-    
-    public String getMaterialTitle() { return materialTitle; }
-    public void setMaterialTitle(String title) { this.materialTitle = title; }
-    
     public int getMaterialWeight() { return materialWeight; }
     public void setMaterialWeight(int weight) { this.materialWeight = weight; }
-    
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    
-    public String getResourceUrl() { return resourceUrl; }
-    public void setResourceUrl(String url) { this.resourceUrl = url; }
-    
-    public String getSkillName() { return skillName; }
-    public void setSkillName(String skillName) { this.skillName = skillName; }
 
-    public java.util.List<MaterialContent> getContents() { return contents; }
-    public void setContents(java.util.List<MaterialContent> contents) { this.contents = contents; }
+    public int getTotalCourseWeight() { return totalCourseWeight; }
+    public void setTotalCourseWeight(int totalCourseWeight) { this.totalCourseWeight = totalCourseWeight; }
+
+    public String getStatus() { return status; }
+
+    /**
+     * Calculates readiness contribution based on formula:
+     * (materialWeight / 100) * totalCourseWeight
+     */
+    public double getReadinessContribution() {
+        if (!"COMPLETED".equalsIgnoreCase(status)) {
+            return 0;
+        }
+        return (materialWeight / 100.0) * totalCourseWeight;
+    }
 }
