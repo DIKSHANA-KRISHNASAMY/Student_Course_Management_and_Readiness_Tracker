@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Catalog | ProgressTracker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-soft: #e0e7ff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+        }
+
+        body {
+            display: block !important;
+            padding: 0 !important;
+            background-color: var(--bg-main) !important;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 40px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .course-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-title {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+
+        .course-desc {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .empty-state p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .empty-state a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4f46e5;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div
+                style="width: 32px; height: 32px; background: #6366f1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <span>ProgressTracker <span style="color: #94a3b8; font-weight: 400;">Student</span></span>
+        </div>
+        <div class="nav-user">
+            <div style="text-align: right;">
+                <div style="font-weight: 600; font-size: 0.9rem;">{{studentName}}</div>
+                <div style="font-size: 0.8rem; color: #64748b;">Student Account</div>
+            </div>
+            <div
+                style="width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b;">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <a href="/login.html" style="color: #ef4444; text-decoration: none; font-size: 1.1rem; margin-left: 10px;"
+                title="Logout"><i class="fas fa-power-off"></i></a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <nav style="display:flex;align-items:center;gap:8px;font-size:0.9rem;margin-bottom:24px;color:#64748b">
+            <a href="dashboard" style="color:#64748b;text-decoration:none"><i class="fas fa-home"></i></a>
+            <span style="color:#94a3b8">/</span>
+            <span style="color:#0f172a;font-weight:500">Course Catalog</span>
+        </nav>
+
+        <header class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+                <h1 style="margin:0 0 8px 0;">Course Catalog</h1>
+                <p style="margin:0;">Explore new subjects and expand your knowledge base.</p>
+            </div>
+            <div style="padding-top:4px;">
+                <select onchange="sortCourses(this.value)"
+                    style="padding:10px 16px;border:1px solid #cbd5e1;border-radius:8px;font-family:'Inter';color:#475569;font-size:0.9rem;outline:none;background:white;cursor:pointer;font-weight:500;">
+                    <option value="name-asc">Sort: A-Z</option>
+                    <option value="name-desc">Sort: Z-A</option>
+                    <option value="status">Status: Active First</option>
+                </select>
+            </div>
+        </header>
+
+        <script>
+            function sortCourses(sortType) {
+                const grid = document.querySelector('.courses-grid');
+                if (!grid) return;
+
+                const cards = Array.from(grid.children);
+
+                cards.sort((a, b) => {
+                    if (sortType === 'name-asc' || sortType === 'name-desc') {
+                        const nameA = a.querySelector('.course-title').textContent.trim();
+                        const nameB = b.querySelector('.course-title').textContent.trim();
+                        return sortType === 'name-asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+                    } else if (sortType === 'status') {
+                        const badgeA = a.querySelector('.course-badge').textContent.trim();
+                        const badgeB = b.querySelector('.course-badge').textContent.trim();
+                        // Active courses first (NEW badge comes before INACTIVE)
+                        if (badgeA === 'NEW' && badgeB === 'INACTIVE') return -1;
+                        if (badgeA === 'INACTIVE' && badgeB === 'NEW') return 1;
+                        return 0;
+                    }
+                });
+
+                cards.forEach(card => grid.appendChild(card));
+            }
+        </script>
+
+        <!-- Courses will be injected here by Java handler -->
+        {{coursesContent}}
+    </div>
+</body>
+
+</html>

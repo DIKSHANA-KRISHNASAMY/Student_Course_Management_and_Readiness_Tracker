@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress Tracker | Login</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Animated background elements -->
+    <div class="background-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="login-container">
+        <!-- Eye-catching brand header -->
+        <div class="brand-section">
+            <div class="brand-logo-wrapper">
+                <div class="brand-logo">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+            <h1 class="brand-title">ProgressTracker</h1>
+            <p class="brand-subtitle">Elevate Your Learning Journey</p>
+        </div>
+
+        <!-- Login card -->
+        <div class="login-card">
+            <div class="card-header">
+                <h2>Welcome Back, Scholar</h2>
+                <p>Sign in to continue your progress journey</p>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="alertContainer"
+                style="display: none; margin-bottom: 20px; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;">
+            </div>
+
+            <form action="/auth/login" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="text" id="email" name="email" class="form-input" required
+                            placeholder="student@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" class="form-input" required
+                            placeholder="Enter your secure password">
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-rocket"></i>
+                    Launch Dashboard
+                </button>
+            </form>
+
+            <!-- Action buttons -->
+            <div class="action-section">
+                <p>New to ProgressTracker?</p>
+                <div class="button-grid">
+                    <a href="register.html" class="action-btn btn-register">
+                        <i class="fas fa-user-plus"></i>
+                        Join Now
+                    </a>
+                    <a href="admin_login.html" class="action-btn btn-admin">
+                        <i class="fas fa-shield-alt"></i>
+                        Admin Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="page-footer">
+            <p>© 2023 Student Progress Tracker. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Terms</a>
+                <a href="#"><i class="fas fa-headset"></i> Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password toggle script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            if (toggleBtn && passwordInput) {
+                toggleBtn.addEventListener('click', function () {
+                    const type = passwordInput.type === 'password' ? 'text' : 'password';
+                    passwordInput.type = type;
+                    this.innerHTML = type === 'password' ?
+                        '<i class="fas fa-eye"></i>' :
+                        '<i class="fas fa-eye-slash"></i>';
+                });
+            }
+
+            // Alert Handling logic
+            const urlParams = new URLSearchParams(window.location.search);
+            const alertBox = document.getElementById('alertContainer');
+
+            if (urlParams.has('error')) {
+                const error = urlParams.get('error');
+                let msg = "An error occurred.";
+
+                if (error === 'InvalidEmail') {
+                    msg = '<div style="display:flex; align-items:center; gap:10px;"><i class="fas fa-exclamation-circle" style="font-size:1.1rem;"></i> <span><strong>Account User Not Found</strong><br><span style="font-weight:400; font-size:0.85rem;">We couldn\'t find an account with that email address.</span></span></div>';
+                }
+                if (error === 'InvalidPassword') {
+                    msg = '<div style="display:flex; align-items:center; gap:10px;"><i class="fas fa-shield-alt" style="font-size:1.1rem;"></i> <span><strong>Incorrect Password</strong><br><span style="font-weight:400; font-size:0.85rem;">The password you entered is incorrect. Please try again.</span></span></div>';
+                }
+
+                if (alertBox) {
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = '#FEF2F2';
+                    alertBox.style.color = '#991B1B';
+                    alertBox.style.border = '1px solid #FCA5A5';
+                    alertBox.innerHTML = msg;
+                }
+            }
+
+            if (urlParams.has('success')) {
+                const success = urlParams.get('success');
+                let msg = "Success!";
+                if (success === 'Registered') msg = '<i class="fas fa-check-circle"></i> Registration successful! Please login.';
+
+                if (alertBox) {
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = '#f0fdf4';
+                    alertBox.style.color = '#166534';
+                    alertBox.style.border = '1px solid #dcfce7';
+                    alertBox.innerHTML = msg;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

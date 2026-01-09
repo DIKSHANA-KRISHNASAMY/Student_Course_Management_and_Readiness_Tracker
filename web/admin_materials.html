@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Manager | Admin</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <style>
+        .main-layout {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 40px;
+        }
+
+        .card-panel {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #0f172a;
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            /* Bigger padding */
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            /* Bigger font */
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .action-btn {
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* ... existing type-selector styles ... */
+        .type-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .type-option:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+            background: #eef2ff;
+        }
+
+        .type-option.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .weight-badge {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .weight-ok {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .weight-warn {
+            color: #854d0e;
+            background: #fef9c3;
+        }
+
+        .material-card {
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .material-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Better alignment */
+            margin-bottom: 16px;
+        }
+
+        .material-icon {
+            width: 48px;
+            /* Bigger icon box */
+            height: 48px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.25rem;
+            border: 1px solid #f1f5f9;
+        }
+
+        .meta-container {
+            display: inline-flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 4px;
+            gap: 0;
+        }
+
+        .meta-pill {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .meta-pill.type {
+            background: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .meta-pill.weight {
+            color: #64748b;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        /* Specific Type Colors for text */
+        .text-type {
+            color: #4338ca;
+        }
+
+        .link-type {
+            color: #15803d;
+        }
+
+        .file-type {
+            color: #b45309;
+        }
+
+        .image-type {
+            color: #be123c;
+        }
+
+        .error-box {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #b91c1c;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+    </style>
+    <script>
+        function setType(type) {
+            document.getElementById('inputType').value = type;
+            document.querySelectorAll('.type-option').forEach(el => el.classList.remove('active'));
+            document.getElementById('btn-' + type).classList.add('active');
+
+            document.getElementById('field-text').style.display = 'none';
+            document.getElementById('field-link').style.display = 'none';
+            document.getElementById('field-file').style.display = 'none';
+
+            if (type === 'TEXT') document.getElementById('field-text').style.display = 'block';
+            if (type === 'LINK') document.getElementById('field-link').style.display = 'block';
+            if (type === 'FILE' || type === 'IMAGE') document.getElementById('field-file').style.display = 'block';
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="nav-brand-icon"><i class="fas fa-cube"></i></div>
+            <span>ProgressTracker <span style="color: #94a3b8; font-weight: 400;">Admin</span></span>
+        </div>
+        <div class="nav-user">
+            <div class="nav-user-info">
+                <div class="nav-user-name">Administrator</div>
+                <div class="nav-user-role">Super User</div>
+            </div>
+            <div class="nav-avatar"><i class="fas fa-user"></i></div>
+            <a href="/login.html" class="nav-logout" title="Logout"><i class="fas fa-power-off"></i></a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <nav class="breadcrumbs">
+            <a href="admin_dashboard"><i class="fas fa-home"></i></a>
+            <span class="separator">/</span>
+            <a href="subjects?mode=manage">Curriculum</a>
+            <span class="separator">/</span>
+            <span class="current">{{skillName}}</span>
+        </nav>
+        <h1 style="margin: 10px 0 30px;">Content Manager</h1>
+
+        <div class="main-layout">
+            <!-- Editor Panel -->
+            <div>
+                <div class="section-header">
+                    <h2 style="font-size:1.25rem; margin:0;">{{formTitle}}</h2>
+                    {{cancelButton}}
+                </div>
+
+                <div class="card-panel" style="position:sticky; top:100px;">
+                    {{errorBox}}
+                    <form action="materials" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="skillId" value="{{skillId}}">
+                        <input type="hidden" name="action" value="{{action}}">
+                        {{editIdField}}
+
+                        <div style="margin-bottom:20px;">
+                            <label class="form-label">Title (Chapter Name)</label>
+                            <input type="text" name="title" class="form-input" value="{{editTitle}}" required>
+                        </div>
+
+                        <div style="margin-bottom:20px;">
+                            <label class="form-label">Weight (%)</label>
+                            <input type="number" name="weight" class="form-input" value="{{editWeight}}" required
+                                min="1" max="100">
+                        </div>
+
+                        <input type="hidden" name="type" id="inputType" value="{{editType}}">
+                        <label class="form-label">Content Type</label>
+                        <div class="type-selector">
+                            <div class="type-option" id="btn-TEXT" onclick="setType('TEXT')"><i class="fas fa-font"></i>
+                                Text</div>
+                            <div class="type-option" id="btn-LINK" onclick="setType('LINK')"><i class="fas fa-link"></i>
+                                Link</div>
+                            <div class="type-option" id="btn-FILE" onclick="setType('FILE')"><i
+                                    class="fas fa-file-pdf"></i> File</div>
+                            <div class="type-option" id="btn-IMAGE" onclick="setType('IMAGE')"><i
+                                    class="fas fa-image"></i> Image</div>
+                        </div>
+
+                        <div id="field-text" style="display:none;">
+                            <label class="form-label">Text Content</label>
+                            <textarea name="text_val" class="form-input" rows="6">{{editTextVal}}</textarea>
+                        </div>
+
+                        <div id="field-link" style="display:none;">
+                            <label class="form-label">Link URL</label>
+                            <input type="text" name="link_val" class="form-input" value="{{editLinkVal}}">
+                        </div>
+
+                        <div id="field-file" style="display:none;">
+                            <label class="form-label">Upload File</label>
+                            {{existingFileInfo}}
+                            <input type="file" name="file_val" class="form-input">
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="margin-top:20px;">{{submitText}}</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Materials List -->
+            <div>
+                <div class="section-header">
+                    <h2 style="font-size:1.25rem; margin:0;">Existing Modules</h2>
+                    <span class="weight-badge {{weightClass}}">Total: {{totalWeight}}%</span>
+                </div>
+
+                {{materialsContent}}
+            </div>
+        </div>
+    </div>
+
+    <script>setType('{{editType}}');</script>
+    {{toastHtml}}
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{skillName}} | Course Preview</title>
+    <link rel="stylesheet" href="css/style.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soft: #e0e7ff;
+            --primary-dark: #3730a3;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+        }
+
+        body {
+            display: block !important;
+            padding: 0 !important;
+            background-color: var(--bg-main) !important;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 40px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .header-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .course-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4f46e5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .course-title {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            color: #0f172a;
+        }
+
+        .course-desc {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .materials-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .material-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .material-header {
+            padding: 20px 30px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .material-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .material-type {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .preview-badge {
+            font-size: 0.8rem;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .material-body {
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .material-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .material-details {
+            flex-grow: 1;
+        }
+
+        .material-details .title {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .material-details .hint {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .btn-action {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #475569;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #f8fafc;
+        }
+
+        .enroll-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .enroll-section h3 {
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        .btn-enroll {
+            padding: 16px 40px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-enroll:hover {
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            background: white;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* Text Modal */
+        .text-content-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-content-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+        }
+    </style>
+    <script>
+        function openTextModal(title, base64Content) {
+            var content = '';
+            try { content = atob(base64Content); } catch (e) { content = 'Unable to decode content.'; }
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').innerHTML = '<pre style="white-space: pre-wrap; word-wrap: break-word; font-family: inherit; margin: 0;">' + content + '</pre>';
+            document.getElementById('textModal').style.display = 'flex';
+        }
+        function closeTextModal() {
+            document.getElementById('textModal').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div
+                style="width: 32px; height: 32px; background: #6366f1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-chart-line"></i></div>
+            <span>ProgressTracker <span style="color: #94a3b8; font-weight: 400;">Student</span></span>
+        </div>
+        <div class="nav-user">
+            <div style="text-align: right;">
+                <div style="font-weight: 600; font-size: 0.9rem;">{{studentName}}</div>
+                <div style="font-size: 0.8rem; color: #64748b;">Student Account</div>
+            </div>
+            <div
+                style="width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b;">
+                <i class="fas fa-user-graduate"></i></div>
+            <a href="login.html" style="color: #ef4444; text-decoration: none; font-size: 1.1rem; margin-left: 10px;"
+                title="Logout"><i class="fas fa-power-off"></i></a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div style="margin-bottom: 20px;">
+            <a href="dashboard?view=available"
+                style="text-decoration: none; color: #64748b; font-weight: 500; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-arrow-left"></i> Back to Previous
+            </a>
+        </div>
+
+        <!-- Header Card -->
+        <div class="header-card">
+            <div class="course-label">Course Preview</div>
+            <h1 class="course-title">{{skillName}}</h1>
+            <p class="course-desc">Review the course syllabus and available materials before enrolling.</p>
+        </div>
+
+        {{materialsContent}}
+    </div>
+
+    <!-- Text Modal -->
+    <div id="textModal" class="text-content-modal" onclick="if(event.target === this) closeTextModal();">
+        <div class="text-content-box">
+            <button class="modal-close" onclick="closeTextModal()"><i class="fas fa-times"></i></button>
+            <h3 id="modal-title" style="margin: 0 0 20px 0; color: #0f172a;"></h3>
+            <div id="modal-body" style="color: #334155; line-height: 1.6;"></div>
+        </div>
+    </div>
+</body>
+
+</html>

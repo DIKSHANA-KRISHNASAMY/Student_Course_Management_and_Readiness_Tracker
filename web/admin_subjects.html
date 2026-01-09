@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}} | Admin</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <style>
+        .add-section {
+            background: white;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            padding: 12px 24px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background: #4f46e5;
+        }
+
+        /* Fixed Card Grid - matches original */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .course-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-action {
+            margin-top: auto;
+        }
+
+        .btn-view {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-view:hover {
+            background: #dbeafe;
+        }
+
+        .btn-manage {
+            background: #fdf4ff;
+            color: #9333ea;
+            border: 1px solid #f3e8ff;
+        }
+
+        .btn-manage:hover {
+            background: #f3e8ff;
+        }
+
+        .btn-toggle {
+            background: white;
+            border: 1px solid #f59e0b;
+            color: #f59e0b;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background: white;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="nav-brand-icon"><i class="fas fa-cube"></i></div>
+            <span>ProgressTracker <span style="color: #94a3b8; font-weight: 400;">Admin</span></span>
+        </div>
+        <div class="nav-user">
+            <div class="nav-user-info">
+                <div class="nav-user-name">Administrator</div>
+                <div class="nav-user-role">Super User</div>
+            </div>
+            <div class="nav-avatar"><i class="fas fa-user"></i></div>
+            <a href="/login.html" class="nav-logout" title="Logout"><i class="fas fa-power-off"></i></a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <nav class="breadcrumbs">
+            <a href="admin_dashboard"><i class="fas fa-home"></i></a>
+            <span class="separator">/</span>
+            <span class="current">{{pageTitle}}</span>
+        </nav>
+
+        <header class="page-header">
+            <div>
+                <h1>{{pageTitle}}</h1>
+                <p>{{pageDescription}}</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+                <form action="subjects" method="GET" style="margin:0;">
+                    <input type="hidden" name="mode" value="manage">
+                    <select name="filter" onchange="this.form.submit()"
+                        style="padding:10px 16px;border:1px solid #cbd5e1;border-radius:8px;font-family:'Inter';color:#475569;font-size:0.9rem;outline:none;background:white;cursor:pointer;">
+                        <option value="" {{filterAllSelected}}>All Courses</option>
+                        <option value="active" {{filterActiveSelected}}>Active Only</option>
+                        <option value="inactive" {{filterInactiveSelected}}>Inactive Only</option>
+                    </select>
+                </form>
+            </div>
+        </header>
+
+        {{addFormSection}}
+
+        {{coursesContent}}
+    </div>
+    {{toastHtml}}
+</body>
+
+</html>

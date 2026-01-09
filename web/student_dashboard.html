@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | ProgressTracker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-soft: #e0e7ff;
+            --primary-dark: #3730a3;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+        }
+
+        body {
+            display: block !important;
+            padding: 0 !important;
+            background-color: var(--bg-main) !important;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 40px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Module/Card Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+
+        .module-content {
+            padding: 32px;
+            flex-grow: 1;
+        }
+
+        .module-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .module-desc {
+            color: #64748b;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .module-action {
+            background: #f8fafc;
+            padding: 20px 32px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #4f46e5;
+        }
+
+        .module-card:hover .module-action {
+            background: #f1f5f9;
+            color: #4338ca;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div
+                style="width: 32px; height: 32px; background: #6366f1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <span>ProgressTracker <span style="color: #94a3b8; font-weight: 400;">Student</span></span>
+        </div>
+        <div class="nav-user">
+            <div style="text-align: right;">
+                <div style="font-weight: 600; font-size: 0.9rem;">{{studentName}}</div>
+                <div style="font-size: 0.8rem; color: #64748b;">Student Account</div>
+            </div>
+            <div
+                style="width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b;">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <a href="/login.html" style="color: #ef4444; text-decoration: none; font-size: 1.1rem; margin-left: 10px;"
+                title="Logout">
+                <i class="fas fa-power-off"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div>
+                <h1>Welcome back, {{studentName}}</h1>
+                <p>{{today}}</p>
+            </div>
+        </header>
+
+        <!-- Module Grid -->
+        <div class="modules-grid">
+            <!-- Stats Column (Stacked) -->
+            <div class="stats-column" style="display: flex; flex-direction: column; gap: 24px; height: 100%;">
+
+                <!-- Stat Card: Total Courses (Swapped Position 1) -->
+                <div class="stat-card"
+                    style="flex: 1; background: white; border-radius: 16px; border: 1px solid #e2e8f0; padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <div style="display: flex; flex-direction: column;">
+                        <span
+                            style="font-size: 0.875rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">Total
+                            Courses</span>
+                        <span
+                            style="font-size: 2.25rem; font-weight: 700; color: #0f172a; line-height: 1.2;">{{totalCoursesCount}}</span>
+                    </div>
+                    <div
+                        style="width: 48px; height: 48px; background: #fdf4ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #d946ef; font-size: 1.25rem;">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                </div>
+
+                <!-- Stat Card: Enrolled Courses (Swapped Position 2) -->
+                <div class="stat-card"
+                    style="flex: 1; background: white; border-radius: 16px; border: 1px solid #e2e8f0; padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <div style="display: flex; flex-direction: column;">
+                        <span
+                            style="font-size: 0.875rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;">Enrolled
+                            Courses</span>
+                        <span
+                            style="font-size: 2.25rem; font-weight: 700; color: #0f172a; line-height: 1.2;">{{enrolledCoursesCount}}</span>
+                    </div>
+                    <div
+                        style="width: 48px; height: 48px; background: #eff6ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.25rem;">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Course Catalog Card -->
+            <div class="module-card" onclick="window.location.href='dashboard?view=available'">
+                <div class="module-content">
+                    <div class="module-icon-box" style="background: #f0fdf4; color: #15803d;">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2 class="module-title">Course Catalog</h2>
+                    <p class="module-desc">Explore our curriculum and enroll in new subjects to expand your skills.</p>
+                </div>
+                <div class="module-action">
+                    <span>Browse Catalog</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <!-- My Active Courses Card -->
+            <div class="module-card" onclick="window.location.href='dashboard?view=active'">
+                <div class="module-content">
+                    <div class="module-icon-box" style="background: #e0e7ff; color: #4338ca;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="module-title">My Active Courses</h2>
+                    <p class="module-desc">Continue where you left off. Access your current enrollments and track your
+                        completion status.</p>
+                </div>
+                <div class="module-action">
+                    <span>Resume Learning</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

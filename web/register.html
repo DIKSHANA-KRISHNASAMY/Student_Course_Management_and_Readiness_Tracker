@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | ProgressTracker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Animated background elements -->
+    <div class="background-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="login-container">
+        <!-- Brand header -->
+        <div class="brand-section">
+            <div class="brand-logo-wrapper">
+                <div class="brand-logo">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+            <h1 class="brand-title">Join ProgressTracker</h1>
+            <p class="brand-subtitle">Start Your Learning Journey Today</p>
+        </div>
+
+        <!-- Registration card -->
+        <div class="login-card">
+            <div class="card-header">
+                <h2>Create Account</h2>
+                <p>Fill in your details to get started</p>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="alertContainer"
+                style="display: none; margin-bottom: 20px; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;">
+            </div>
+
+            <form action="/auth/register" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        <i class="fas fa-user"></i>
+                        Full Name
+                    </label>
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="name" name="name" class="form-input" required placeholder="John Doe">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" class="form-input" required
+                            placeholder="student@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" class="form-input" required
+                            placeholder="Create a secure password">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn"
+                    style="background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+
+            <!-- Action buttons -->
+            <div class="action-section">
+                <p>Already have an account?</p>
+                <div class="button-grid" style="grid-template-columns: 1fr;">
+                    <a href="login.html" class="action-btn btn-admin">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In Instead
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="page-footer">
+            <p>© 2023 Student Progress Tracker. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const alertBox = document.getElementById('alertContainer');
+
+            if (urlParams.has('error')) {
+                const error = urlParams.get('error');
+                let msg = "An error occurred.";
+
+                if (error === 'EmailAlreadyExists') msg = '<i class="fas fa-exclamation-triangle"></i> User already exists';
+                if (error === 'RegistrationFailed') msg = '<i class="fas fa-times-circle"></i> Registration failed. Please try again.';
+
+                if (alertBox) {
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = '#fef2f2';
+                    alertBox.style.color = '#ef4444';
+                    alertBox.style.border = '1px solid #fee2e2';
+                    alertBox.innerHTML = msg;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

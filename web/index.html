@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Progress Tracker | Welcome</title>
+    <!-- RES: v3.0 PROFESSIONAL -->
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Landing page specific styles */
+        .landing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .nav-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            padding: 10px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ghost {
+            color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(79, 70, 229, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 100px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeInLeft 0.8s ease-out 0.2s both;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-primary {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4);
+        }
+
+        .hero-btn-secondary {
+            padding: 16px 32px;
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            animation: fadeInRight 0.8s ease-out 0.4s both;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .icon-blue {
+            background: #eff6ff;
+            color: #3b82f6;
+        }
+
+        .icon-purple {
+            background: #f3e8ff;
+            color: #a855f7;
+        }
+
+        .icon-green {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-desc {
+                margin: 0 auto 40px auto;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="landing-container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="nav-logo-text">ProgressTracker</span>
+            </a>
+            <div class="nav-links">
+                <a href="login.html" class="nav-link">Log In</a>
+                <a href="register.html" class="nav-btn btn-ghost">Get Started</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero-section">
+            <div class="hero-content">
+                <span class="hero-badge">New v2.0 Released</span>
+                <h1 class="hero-title">Master Your <br><span>Learning Journey</span></h1>
+                <p class="hero-desc">
+                    Track your progress, visualize your growth, and achieve your academic goals with our intuitive
+                    student performance dashboard.
+                </p>
+                <div class="hero-actions">
+                    <a href="register.html" class="hero-btn-primary">
+                        Start for Free <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="login.html" class="hero-btn-secondary">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="hero-card">
+                    <div class="card-header" style="text-align: left; margin-bottom: 20px;">
+                        <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                            <div style="width: 40px; height: 40px; background: #e0e7ff; border-radius: 10px;"></div>
+                            <div>
+                                <div
+                                    style="width: 120px; height: 10px; background: #e2e8f0; border-radius: 5px; margin-bottom: 8px;">
+                                </div>
+                                <div style="width: 80px; height: 8px; background: #f1f5f9; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="width: 100px; height: 10px; background: #e2e8f0; border-radius: 5px;"></div>
+                                <div style="width: 30px; height: 10px; background: #c7d2fe; border-radius: 5px;"></div>
+                            </div>
+                            <div
+                                style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden;">
+                                <div style="width: 75%; height: 100%; background: var(--primary); border-radius: 4px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Decorative elements behind card -->
+                <div
+                    style="position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid rgba(124, 58, 237, 0.1); border-radius: 40px; z-index: 1;">
+                </div>
+            </div>
+        </header>
+
+        <!-- Features Grid -->
+        <section class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon icon-blue">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3 class="feature-title">Visual Analytics</h3>
+                <p class="feature-desc">Track your completion status across all subjects and view real-time readiness
+                    scores.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-purple">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="feature-title">Readiness Store</h3>
+                <p class="feature-desc">Know exactly when you're ready for exams with our proprietary readiness
+                    calculation algorithm.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-green">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3 class="feature-title">Task Management</h3>
+                <p class="feature-desc">Keep track of all your course materials, assignments, and deadlines in one
+                    organized place.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="page-footer" style="padding-bottom: 40px;">
+            <p>© 2023 Student Progress Tracker. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="admin_login.html">Admin</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
