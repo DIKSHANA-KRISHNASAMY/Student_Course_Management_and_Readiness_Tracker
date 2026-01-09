@@ -51,4 +51,3 @@ This structure separates responsibilities and makes the system easy to maintain 
   - Personalized learning recommendations
   - Mobile application support
   - Real-time notifications and reminders
-
