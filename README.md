@@ -11,6 +11,7 @@ Student Course Management and Readiness Tracker is a Java-based web application 
 - Server: Custom Java HTTP Server
 
 👉FEATURES
+
 1.Student Module
   - Register and login
   - View available and enrolled courses
@@ -35,10 +36,12 @@ Student Course Management and Readiness Tracker is a Java-based web application 
   - Critical skills contribute more to readiness than minor ones.
 
 👉READINESS CALCULATION
+
     🧩 Readiness Score = (Sum of Skill Weightage × Skill Performance) / Total Weightage
 This ensures readiness reflects learning quality, not just learning quantity.
 
 👉SYSTEM ARCHITECTURE
+
 The system follows the MVC (Model–View–Controller) architecture.
   -Model: Manages data and rules of the system.
   -View: Displays information to the user.
