@@ -7,7 +7,7 @@ package model;
 public abstract class User {
     // ENCAPSULATION: private fields accessed via getters/setters
     private int id;
-    private String username; // or email for student
+    private String username; 
     private String password;
     private String role; // "ADMIN" or "STUDENT"
 
@@ -34,3 +34,4 @@ public abstract class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
+
